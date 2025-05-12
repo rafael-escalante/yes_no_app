@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yes_no_app/domain/entities/message.dart';
 import 'package:yes_no_app/presentation/Widgets/chat/my_message_bubble.dart';
-import 'package:yes_no_app/presentation/Widgets/her_message_bubble.dart';
+import 'package:yes_no_app/presentation/Widgets/chat/her_message_bubble.dart';
 import 'package:yes_no_app/presentation/Widgets/shared/message_field_box.dart';
 import 'package:yes_no_app/presentation/providers/chat_provider.dart';
 
@@ -38,6 +38,8 @@ class _ChatView extends StatelessWidget {
           children: [
             Expanded(
                 child: ListView.builder(
+                    //enlaza el controlador creado en ChatProvider
+                    controller: chatProvider.chatScrollController,
                     itemCount: chatProvider.messageList.length,
                     itemBuilder: (context, index) {
                       //Instancia que sabrá de quien es el mensaje
@@ -51,7 +53,9 @@ class _ChatView extends StatelessWidget {
                     })),
 
             ///caja de texto de mensajes
-            const MessageFieldBox(),
+            MessageFieldBox(
+              onValue: chatProvider.sendMessage,
+            ),
           ],
         ),
       ),
